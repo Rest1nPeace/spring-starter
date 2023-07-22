@@ -1,4 +1,4 @@
-package com.dmdev.spring.config;
+package com.dmdev.spring.config.condition;
 
 import com.dmdev.spring.database.pool.ConnectionPool;
 import com.dmdev.spring.database.repository.UserRepository;
