@@ -1,4 +1,4 @@
-package com.dmdev.spring.config.condition;
+package com.dmdev.spring.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -10,7 +10,7 @@ public record DatabaseProperties(String username,
                                  String password,
                                  String driver,
                                  String url,
-                                 String host,
+                                 String hosts,
                                  PoolProperties pool,
                                  List<PoolProperties> pools,
                                  Map<String, Object> properties) {

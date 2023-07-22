@@ -1,19 +1,16 @@
 db:
   username: ${username.value:postgres}
   password: pass
-
   driver: PostgresDriver
-  url:postgres: 5432
+  url: postgres:5432
   hosts: localhost,127.0.0.1
-
   properties:
-    first: 23
+    first: 123
     second: 567
     third.value: Third
-
   pool:
-  size: 12
-  timeout: 10
+    size: 12
+    timeout: 10
   pools:
     - size: 1
       timeout: 1
@@ -21,4 +18,13 @@ db:
       timeout: 2
     - size: 3
       timeout: 3
+
 spring.profiles.active: qa
+
+logging:
+  level:
+    root: WARN
+    com.dmdev.spring.database.pool: INFO
+  file:
+    name: dmdev.log
+    path: /
