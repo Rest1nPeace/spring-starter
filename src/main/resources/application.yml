@@ -25,3 +25,6 @@ spring.profiles.active: qa
 logging:
   level:
     root: info
+  file:
+    name: dmdev.log
+    path: /
