@@ -1,4 +1,4 @@
-package com.dmdev.spring.database.repository;
+package com.dmdev.spring.database.pool.repository;
 
 import com.dmdev.spring.bpp.Auditing;
 import com.dmdev.spring.bpp.Transaction;

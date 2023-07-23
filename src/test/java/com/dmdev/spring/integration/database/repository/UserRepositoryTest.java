@@ -1,7 +1,7 @@
 package com.dmdev.spring.integration.database.repository;
 
 import com.dmdev.spring.database.entity.User;
-import com.dmdev.spring.database.repository.UserRepository;
+import com.dmdev.spring.database.pool.repository.UserRepository;
 import com.dmdev.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
