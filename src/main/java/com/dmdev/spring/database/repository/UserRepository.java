@@ -2,6 +2,7 @@ package com.dmdev.spring.database.repository;
 
 import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.database.entity.User;
+import com.dmdev.spring.dto.PersonalInfo2;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAllBy(String firstname, String lastname);
 
     @Query(value = "SELECT u.* FROM users u WHERE u.username = :username",
-    nativeQuery = true)
+            nativeQuery = true)
     List<User> findByAllByUsername(SimpleTimeZone username);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
@@ -38,6 +39,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {"company", "company.locales"})
     @Query(value = "select u from User u",
-    countQuery = "select count(distinct u.firstname) from User u")
+            countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
+
+//    List<PersonalInfo> findAllByCompanyId(Integer companyId);
+//   <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
+
+    @Query(value = "SELECT firstname, lastname, birth_date birthDate FROM users WHERE company_id = :companyId",
+            nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 }
