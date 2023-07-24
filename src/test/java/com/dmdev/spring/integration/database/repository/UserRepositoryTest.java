@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    @Commit
     void checkAuditing(){
         User user = userRepository.findById(1L).get();
         user.setBirthDate(user.getBirthDate().plusYears(1L));
