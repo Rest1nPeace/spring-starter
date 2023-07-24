@@ -5,6 +5,8 @@ plugins {
     id "io.freefair.lombok" version "8.1.0"
 }
 
+apply from: 'version.gradle'
+
 group = 'com.dmdev'
 version = '0.0.1-SNAPSHOT'
 
@@ -28,7 +30,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-envers'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.h2database:h2'
+    testImplementation "org.testcontainers:postgresql:${versions.testcontainers}"
 }
 
 test {

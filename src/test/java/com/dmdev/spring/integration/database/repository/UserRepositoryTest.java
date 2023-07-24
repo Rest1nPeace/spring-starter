@@ -6,6 +6,7 @@ import com.dmdev.spring.database.repository.UserRepository;
 import com.dmdev.spring.dto.PersonalInfo;
 import com.dmdev.spring.dto.PersonalInfo2;
 import com.dmdev.spring.dto.UserFilter;
+import com.dmdev.spring.integration.IntegrationTestBase;
 import com.dmdev.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql({
-        "classpath:sql/data.sql"
-})
+
+
 @RequiredArgsConstructor
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
@@ -46,7 +45,6 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Commit
     void checkAuditing(){
         User user = userRepository.findById(1L).get();
         user.setBirthDate(user.getBirthDate().plusYears(1L));
