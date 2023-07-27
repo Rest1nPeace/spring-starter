@@ -1,33 +1,66 @@
 package com.dmdev.spring.integration.service;
 
-import com.dmdev.spring.config.DatabaseProperties;
-import com.dmdev.spring.dto.CompanyReadDto;
-import com.dmdev.spring.integration.annotation.IT;
-import com.dmdev.spring.service.CompanyService;
+import com.dmdev.spring.database.entity.Company;
+import com.dmdev.spring.database.repository.CompanyRepository;
+import com.dmdev.spring.integration.IntegrationTestBase;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.transaction.support.TransactionTemplate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@IT
 @RequiredArgsConstructor
 //@ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = ApplicationRunner.class, initializers = ConfigDataApplicationContextInitializer.class)
-public class CompanyServiceIT {
+public class CompanyServiceIT extends IntegrationTestBase {
 
-    private static final Integer COMPANY_ID = 1;
+    private static final Integer APPLE_ID = 5;
+    private final EntityManager entityManager;
+    private final TransactionTemplate transactionTemplate;
+    private final CompanyRepository companyRepository;
 
-    private final CompanyService companyService;
-    private final DatabaseProperties databaseProperties;
+    @Test
+    void checkFindByQueries() {
+        companyRepository.findByName("google");
+        companyRepository.findAllByNameContainingIgnoreCase("a");
+    }
+
+    @Test
+    @Disabled
+    void delete() {
+        var maybeCompany = companyRepository.findById(APPLE_ID);
+        assertTrue(maybeCompany.isPresent());
+        maybeCompany.ifPresent(companyRepository::delete);
+        entityManager.flush();
+        assertTrue(companyRepository.findById(APPLE_ID).isEmpty());
+    }
 
     @Test
     void findById() {
-        var actualResult = companyService.findById(COMPANY_ID);
+        transactionTemplate.executeWithoutResult(tx -> {
+            var company = entityManager.find(Company.class, 1);
+            assertNotNull(company);
+            assertThat(company.getLocales()).hasSize(2);
+        });
+    }
 
-        assertTrue(actualResult.isPresent());
-
-        var expectedResult = new CompanyReadDto(COMPANY_ID, null);
-        actualResult.ifPresent(actual -> assertEquals(expectedResult, actual));
+    @Test
+    void save() {
+        var company = Company.builder()
+                .name("Apple1")
+                .locales(Map.of(
+                        "ru", "Apple описание",
+                        "en", "Apple description"
+                ))
+                .build();
+        entityManager.persist(company);
+        assertNotNull(company.getId());
     }
 }

@@ -6,7 +6,7 @@ import lombok.Value;
 import java.time.LocalDate;
 
 @Value
-public class UserCreatedEditDto {
+public class UserCreateEditDto {
     String username;
     LocalDate birthDate;
     String firstname;
