@@ -1,14 +1,12 @@
 package com.dmdev.spring.http.controller;
 
-import com.dmdev.spring.dto.UserCreatedEditDto;
+import com.dmdev.spring.dto.UserCreateEditDto;
 import com.dmdev.spring.service.UserService;
-import jdk.jfr.Registered;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
@@ -37,7 +35,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreatedEditDto user) {
+    public String create(@ModelAttribute UserCreateEditDto user) {
         userService.create(user);
         return "redirect:/users/" + userService.create(user).getId();
     }
@@ -45,7 +43,7 @@ public class UserController {
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Long id,
-                         @ModelAttribute UserCreatedEditDto user) {
+                         @ModelAttribute UserCreateEditDto user) {
 //        userService.update(id, user);
         return "redirect:/users/{id}";
     }
