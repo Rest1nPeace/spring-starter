@@ -1,11 +1,13 @@
 package com.dmdev.spring.http.controller;
 
-import com.dmdev.spring.database.entity.Company;
 import com.dmdev.spring.database.entity.Role;
 import com.dmdev.spring.dto.UserCreateEditDto;
 import com.dmdev.spring.dto.UserFilter;
 import com.dmdev.spring.service.CompanyService;
 import com.dmdev.spring.service.UserService;
+import com.dmdev.spring.validation.group.CreateAction;
+import com.dmdev.spring.validation.group.UpdateAction;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -58,7 +60,7 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()){
@@ -73,7 +75,7 @@ public class UserController {
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated UserCreateEditDto user) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
