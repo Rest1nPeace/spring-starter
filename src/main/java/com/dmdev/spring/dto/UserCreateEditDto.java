@@ -1,6 +1,9 @@
 package com.dmdev.spring.dto;
 
 import com.dmdev.spring.database.entity.Role;
+import com.dmdev.spring.validation.UserInfo;
+import com.dmdev.spring.validation.group.CreateAction;
+import com.dmdev.spring.validation.group.UpdateAction;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,6 +15,7 @@ import java.time.LocalDate;
 
 @Value
 @FieldNameConstants
+@UserInfo(groups = UpdateAction.class)
 public class UserCreateEditDto {
 
     @Email
@@ -20,11 +24,9 @@ public class UserCreateEditDto {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     LocalDate birthDate;
 
-    @NotNull
     @Size(min = 3, max = 64)
     String firstname;
 
-    @NotNull
     String lastname;
 
     Role role;
