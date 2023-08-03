@@ -31,5 +31,4 @@ public class UserCreateEditDto {
 
     Integer companyId;
 
-    //TODo
 }
