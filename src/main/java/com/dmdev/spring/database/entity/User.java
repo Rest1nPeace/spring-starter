@@ -33,6 +33,8 @@ public class User extends AuditingEntity<Long>{
 
     private String firstname;
 
+    private String image;
+
     private String lastname;
 
     @Enumerated(EnumType.STRING)
