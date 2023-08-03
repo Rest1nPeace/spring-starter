@@ -7,7 +7,6 @@ import com.dmdev.spring.service.CompanyService;
 import com.dmdev.spring.service.UserService;
 import com.dmdev.spring.validation.group.CreateAction;
 import com.dmdev.spring.validation.group.UpdateAction;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +27,6 @@ public class UserController {
 
     private final UserService userService;
     private final CompanyService companyService;
-
-
 
     @GetMapping
     public String findAll(Model model, UserFilter filter) {
