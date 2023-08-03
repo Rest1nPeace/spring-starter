@@ -48,12 +48,13 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user){
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         model.addAttribute("companies", companyService.findAll());
-        return "/user/registration";
+        return "user/registration";
     }
+
 
 
     @PostMapping
