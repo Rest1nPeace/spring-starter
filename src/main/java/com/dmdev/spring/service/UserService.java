@@ -9,6 +9,7 @@ import com.dmdev.spring.mapper.UserCreateEditMapper;
 import com.dmdev.spring.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,6 +45,7 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public Optional<UserReadDto> findById(Long id) {
         return userRepository.findById(id)
                 .map(userReadMapper::map);
