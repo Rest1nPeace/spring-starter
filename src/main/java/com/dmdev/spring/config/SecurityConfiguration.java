@@ -20,6 +20,9 @@ public class SecurityConfiguration {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
         http.csrf(AbstractHttpConfigurer::disable)
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login"))
                 .formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/users")
