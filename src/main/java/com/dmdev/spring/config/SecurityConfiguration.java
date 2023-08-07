@@ -22,7 +22,8 @@ public class SecurityConfiguration {
     @Bean
 //    @Order(SecurityProperties.BASIC_AUTH_ORDER)
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         (urlConfig) -> urlConfig
                                 .requestMatchers(new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/users/registration")).permitAll()
