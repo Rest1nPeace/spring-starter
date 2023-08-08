@@ -38,7 +38,12 @@ public class SecurityConfiguration {
                         .logoutSuccessUrl("/login"))
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/users"));
+                        .defaultSuccessUrl("/users"))
+                .oauth2Login(login -> login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/users"))
+                ;
+
 
 
 //        http.httpBasic(Customizer.withDefaults());
