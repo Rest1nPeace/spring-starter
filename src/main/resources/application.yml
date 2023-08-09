@@ -63,3 +63,5 @@ spring:
             clientSecret: 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
             redirectUri: http://localhost:8080/login/oauth2/code/google
             scope: openid,email,profile
+  messages:
+    basename: messages
